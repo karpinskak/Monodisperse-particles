@@ -1,0 +1,58 @@
+clear
+close all
+clc
+delete(gcp('nocreate'))
+
+DIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/';
+
+%% Load constants and functions
+Const=Constants;
+
+% plot parameters
+fsize=16;
+width=16;
+height=20;
+skala=100;
+
+% Data
+Delta=0.005:0.001:0.025; %[m]
+RR=(1:0.5:20.1)*10^(-6); %[m]
+A=[10^(-4),5*10^(-4):5*10^(-4):5*10^(-3)];
+
+[R,delta]=meshgrid(RR,Delta);
+omega=3*Const.nu*sqrt(Const.ro_a/(2*Const.ro_p))*(R.*delta).^(-1);
+
+%% plot
+close all
+figure
+set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
+    'paperunits','centimeters',...
+    'papersize',[width,height],...
+    'InvertHardCopy','off')
+h1=pcolor(delta*skala,R*10^6,omega);
+set(get(get(h1,'Annotation'),'LegendInformation'),'IconDisplayStyle','off');
+colorbar
+xlabel('\delta [cm]')
+ylabel('R [um]')
+h = colorbar;
+ylabel(h, '\omega_{orb} [s^{-1}]')
+shading interp
+ylim([1 20])
+%xlim([0.0001 0.005])
+set(gca,'FontSize',fsize)
+hold on
+for k=1:numel(A)
+    plot(Delta*skala,10^6*Delta*A(k)*12*pi*sqrt(Const.ro_a/(2*Const.ro_p)),'LineWidth',2,'Color',[1-k/numel(A) 1-k/numel(A) 1-k/numel(A)])
+    hold on
+    leg{k}=num2str(A(k));
+end
+a=legend(leg);
+ a.Title.String='A';
+ a.Title.FontSize=fsize-2;
+ a.FontSize=fsize-8;
+ annotation('textbox',[0.7 0.25 0.2 0.2],'String','R = R_{cr}(A)','Color',[1 1 1],'LineStyle','none','FontSize',fsize-2,'FitBoxToText','on');
+ 
+%% save
+% nazwa=char(strcat(DIR, 'Plots/orbit_radius/','orbit_vel_vs_R_delta'));
+% saveas(gcf,nazwa,'fig')
+% saveas(gcf,nazwa,'png')
