@@ -4,7 +4,7 @@ spec='Results_dock_time/Initial_vel_fluid/';
 loadDIR=[DIR spec];
 fDIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/Functions/';
 addpath(fDIR)
-name='Dock_time_eps_00001_inorbit_detTraj.mat';
+name='Dock_time_eps_00001_inorbit_detTraj2.mat';
 
 %% Zasoby
 poolnr=12;
@@ -14,6 +14,7 @@ poolnr=12;
 %AA=0.0001:0.001:0.0101;
 %ST=[0.0001:0.0001:0.001,0.0011:0.001:0.101,0.111:0.01:1];
 %AA=[0.0001:0.0001:0.0081];
+kat=linspace(16*pi^2,)
 ST=0.0001:0.05:1.0001;
 St_A=160:500:9900;
 AA=ST'./St_A;
