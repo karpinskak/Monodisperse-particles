@@ -4,7 +4,7 @@ spec='Results_dock_time/Initial_vel_fluid/';
 loadDIR=[DIR spec];
 fDIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/Functions/';
 addpath(fDIR)
-name='Dock_time_eps_00001_detTraj.mat';
+name='Dock_time_eps_00001_inorbit_det_test.mat';
 
 %% Zasoby
 poolnr=13;
@@ -25,6 +25,5 @@ St=reshape(Stt,numel(AA),1);
 
 t00=0;
 eps=0.0001;
-nt=1000;
-tfinn=5000; % initial 'final simulation time' - changed later if not sufficient
-lim_time=3600; %[s]
+nt=2000;
+lim_time=6000; %[s]
