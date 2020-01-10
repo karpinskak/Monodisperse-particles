@@ -44,7 +44,7 @@ calc_time=zeros(1,numel(A));
 %% calc
 parpool('local',poolnr)
  
-for p=1:numel(A)
+parfor p=1:numel(A)
        
     disp(char(num2str(p),' is on.'))
     tic
@@ -117,9 +117,15 @@ for p=1:numel(A)
     elseif ~isempty(iev)
         texit(p)=tev;
         % now calculate it with enough detail, take small timestep adjusted to particle size
-        nr=2; % it gives the range around tev that will become tspan for detailed traj calc
+        % it gives the range around tev that will become tspan for detailed traj calc
+        nr=2;
+        tdif=trjt(end)-trjt(end-nr);
+        while tdif<0.5*St(p)
+            nr=nr+1;
+            tdif=trjt(end)-trjt(end-nr);
+        end
+        tspanev=trjt(end-nr):0.2*St(p):(trjt(end)+tdif);
         x0ev=trjx(end-nr,:);
-        tspanev=trjt(end-nr):St(p):(trjt(end)+(trjt(end)-trjt(end-nr)));
         [t1,x1,tev2, ~, iev2]=ode45(@(t,x)traj_pionowy(t,x,St(p),A(p)),tspanev,x0ev,opt);
         if ~isempty(tev2)
             texit2(p)=tev2;
