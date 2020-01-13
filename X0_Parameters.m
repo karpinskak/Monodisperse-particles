@@ -4,10 +4,10 @@ spec='Results_dock_time/Initial_vel_fluid/';
 loadDIR=[DIR spec];
 fDIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/Functions/';
 addpath(fDIR)
-name='Dock_time_eps_00001_inorbit_detTraj_testkatow.mat';
+name='Dock_time_eps_00001_full_katy.mat';
 
 %% Zasoby
-poolnr=12;
+poolnr=14;
 
 % Simulation parameters
 % give A and St as a list of paired parameters
@@ -15,7 +15,7 @@ poolnr=12;
 %ST=[0.0001:0.0001:0.001,0.0011:0.001:0.101,0.111:0.01:1];
 %AA=[0.0001:0.0001:0.0081];
 ST=0.0001:0.05:1.0001;
-katy=linspace(atan(160),0.9995*pi/2,25);
+katy=linspace(atan(10),0.9995*pi/2,25);
 katy(end)=[];
 St_A=tan(katy);
 AA=ST'./St_A;
