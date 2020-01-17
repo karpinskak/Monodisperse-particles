@@ -29,6 +29,7 @@ set(gcf,'Position', [300, 300, 2*560, 2.3*420 ],...
     'InvertHardCopy','off')
 %opengl software
 skala=100;
+
 for j=1:numel(deltas)
 
 hln = patch([ones(numel(tau_ps),1)*deltas(j)*skala'; NaN], [wykres(j,:)'; NaN], [tau_z(j,:)'; NaN],'FaceVertexCData',cd,'FaceAlpha',1);
@@ -47,6 +48,11 @@ set(gca,'clim',[1, 20])
 box on
 grid on
 ylabel(h, '$R [\mu m]$','interpreter','latex')
+
+yyaxis right
+plot(deltas*skala,C.nu^(-1)*deltas.^2,'--','LineWidth',3)
+ylabel('$\tau_z$ [s]','interpreter','latex')
+
 
 % magnifyOnFigure(...
 %         figHandler,...

@@ -13,6 +13,7 @@ Const = Constants;
 fDIR=[DIR 'Functions/'];
 addpath(fDIR)
 load([loadDIR 'Dock_time_eps_00001.mat'])
+
 %%
 figure(1)
 tdocest=-log(eps/(Const.rs-eps))./Aa;

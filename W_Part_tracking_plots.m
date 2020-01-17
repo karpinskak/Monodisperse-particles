@@ -1,3 +1,7 @@
+%%% Plots 4 subplots with r, fi, \dot{r} and \dot{fi} in vs. time. Uses 
+%%% results of X_Dock_time Can be scaled or not. Typ - docking process 
+%%% type, skal - skalowanie.
+
 clear
 close all
 clc
@@ -12,8 +16,8 @@ loadDIR=[DIR spec];
 Const = Constants;
 fDIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/Functions/';
 addpath(fDIR)
-
-load([loadDIR 'Dock_time_eps_00001.mat'])
+file='Dock_time_eps_00001_inorbit_wzgl_St_A.mat';
+load([loadDIR file])
 
 %% choose plot type
 typ=0;  % 0- z eps do r_orb
@@ -27,7 +31,7 @@ width=20;
 height=25;
 
 %skalowanie: 0- nie, 1- tak
-skal=0;
+skal=1;
 
 %
 switch typ
@@ -70,7 +74,7 @@ numerki(1)=[];
 end
 
 param_rys=param(numerki);
-maxt=max(texit(numerki));
+maxt=max(real(texit(numerki)));
 
 % plot
 figure
