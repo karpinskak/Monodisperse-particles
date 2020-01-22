@@ -7,7 +7,7 @@ addpath(fDIR)
 name='Dock_time_eps_00001_full_i_katy.mat';
 
 %% Zasoby
-poolnr=14;
+poolnr=12;
 
 % Simulation parameters
 % give A and St as a list of paired parameters
@@ -26,7 +26,7 @@ A1(A1>0.01)=[];
 
 st2=0.0011:0.01:1;
 aa2=0.0001:0.0005:0.01;
-[AA2,STT2]=meshgrid(st2,aa2);
+[STT2,AA2]=meshgrid(st2,aa2);
 A2=reshape(AA2,numel(AA2),1);
 St2=reshape(STT2,numel(AA2),1);
 

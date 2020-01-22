@@ -1,3 +1,8 @@
+%%% A script that plots a 4-tiled figure with r,dor{r}, fi, dot{fi}, scaled
+%%% or not. Tracking data for multiple parameters from group "numerki" is
+%%% ploted in the same figure. Used by W_Part_tracking_plots_corr.mlx
+
+% choose labels and axis limits for all the tiles
 switch skal
     case 1
         labelkax='$t^+/t_{doc}^+$';
@@ -16,51 +21,54 @@ switch skal
         labelkay2='$\dot{\phi^+}$';
         limitx=[0 maxt];
 end
+% colorscale
+kolory=[kol_odn/max(kol_odn) 1-kol_odn/max(kol_odn) zeros(size(kol_odn))];
 
 
-
+%%%%%% plot %%%%%%
 tiledlayout(4, 1)
-
+% 1. tile
 nexttile
 for l=1:numel(numerki)
     p=numerki(l);
     [xplot,yplot1,~,~,~]=plot_variables(skal,typ,eps,part,param,texit,p);
-    plot(xplot,yplot1,'Color',[param(p)/parmax 1-param(p)/parmax 0])
+    plot(xplot,yplot1,'Color',kolory(p,:))
     hold on
 end
 xlabel(labelkax,'interpreter','latex');
 xlim(limitx)
 ylabel('$r^+$','interpreter','latex')
 
+% 2. tile
 nexttile
 for l=1:numel(numerki)
     p=numerki(l);
     [xplot,~,yplot2,~,~]=plot_variables(skal,typ,eps,part,param,texit,p);
-    plot(xplot,yplot2,'Color',[param(p)/parmax 1-param(p)/parmax 0])
+    plot(xplot,yplot2,'Color',kolory(p,:))
     hold on
 end
 xlabel(labelkax,'interpreter','latex');
 xlim(limitx)
 ylabel('$\phi/2 \pi$','interpreter','latex')
 
-
+% 3. tile
 nexttile
 for l=1:numel(numerki)
     p=numerki(l);
     [xplot,~,~,yplot3,~]=plot_variables(skal,typ,eps,part,param,texit,p);
-    plot(xplot,yplot3,'Color',[param(p)/parmax 1-param(p)/parmax 0])
+    plot(xplot,yplot3,'Color',kolory(p,:))
     hold on
 end
 xlabel(labelkax,'interpreter','latex');
 xlim(limitx)
 ylabel(labelkay,'interpreter','latex')
 
-
+% 4. tile
 nexttile
 for l=1:numel(numerki)
     p=numerki(l);
     [xplot,~,~,~,yplot4]=plot_variables(skal,typ,eps,part,param,texit,p);
-    plot(xplot,yplot4,'Color',[param(p)/parmax 1-param(p)/parmax 0])
+    plot(xplot,yplot4,'Color',kolory(p,:))
     hold on
 end
 xlabel(labelkax,'interpreter','latex');
@@ -70,6 +78,7 @@ ylabel(labelkay2,'interpreter','latex')
 
 set(gca,'FontSize',fsize)
 
+% choose relevant data for the plot and scale it if needed
 function [xplot,yplot1,yplot2,yplot3,yplot4]=plot_variables(skal,typ,eps,part,param,texit,p)
  xplot=part(p).traj.t;
     yplot1=part(p).traj.X(:,1);
@@ -80,11 +89,14 @@ function [xplot,yplot1,yplot2,yplot3,yplot4]=plot_variables(skal,typ,eps,part,pa
     if skal==1
         xplot=xplot/texit(p);
         switch typ
-            case 0
+            case 0 % in-orbit
                 [rad_vel_field,~,~]=velocity_field(part(p).par.A,eps,0);
                 yplot3= yplot3./rad_vel_field;
-                yplot4=yplot4/sqrt(param(p)^(-1));
-            case 1
+                [~,az_vel_field,~]=velocity_field(part(p).par.A,yplot1,0);
+                yplot4=yplot4./az_vel_field;
+                %yplot4=yplot4/sqrt(param(p)^(-1));
+
+            case 1 % point
                 [rad_vel_field,~,~]=velocity_field(part(p).par.A,Const.rs,0);
                 yplot3= yplot3./rad_vel_field;
                 [~,az_vel_field,~]=velocity_field(part(p).par.A,eps,0);

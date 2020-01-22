@@ -158,7 +158,7 @@ for p=1:numel(A)
      part(p).traj.X=cell2mat(trX(p));
      part(p).traj.t=cell2mat(trt(p));
 end
-texitt=reshape(texit,size(AA));
+texitt=texit; %% changed 22.01.2020
 texitt(texitt==0)=NaN;
 toc
 save([loadDIR name])
