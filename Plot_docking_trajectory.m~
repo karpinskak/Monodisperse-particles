@@ -7,11 +7,10 @@ switch skal
     case 1
         labelkax='$t^+/t_{doc}^+$';
         limitx=[0 1];
-        limity=[-30000 1];
         switch typ
             case 0
                 labelkay='$\dot{r^+}/v_r^+(\epsilon)$';
-                labelkay2='$u_{\varphi}(r^+)$';
+                labelkay2='$u_{\varphi}(r)$';
                 %labelkay2='$\dot{\phi^+}/\omega_{orb}$';
             case 1
                 labelkay='$\dot{r^+}/v_r^+$';
@@ -63,7 +62,6 @@ for l=1:numel(numerki)
 end
 xlabel(labelkax,'interpreter','latex');
 xlim(limitx)
-ylim(limity)
 ylabel(labelkay,'interpreter','latex')
 
 % 4. tile
