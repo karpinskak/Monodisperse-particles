@@ -74,7 +74,7 @@ parfor k=1:numel(wybor)
         mnoz_param(k)=wyn(1);
         wolny_param(k)=wyn(3);
         yplot2=wyn(1)*exp(-xplot/wyn(2))+wyn(3);
-        Rsq(k) = 1 - sum((yplot - yplot2).^2)/sum((yplot - mean(yplot)).^2); % 28.01.2020 tu byl blad, w ostatniej sumie powinno byc yplot zamiast yplot2 (zamiast predyktora)
+        Rsq(k) = 1 - sum((yplot - yplot2).^2)/sum((yplot2 - mean(yplot2)).^2); % 28.01.2020 tu byl blad, z
     end
     
 end
