@@ -11,11 +11,11 @@ switch skal
             case 0 % in-orbit
                 labelkay0='$r^+/r^+_{orb}$';
                 labelkay1='$-\dot{r^+}/u_r^+(\sigma)$';
-                labelkay2='$r^+\varphi(r^+)/u^+_{\varphi}(r)$';
-                %labelkay2='$\dot{\phi^+}/\omega_{orb}$';
+                %labelkay2='$r^+\varphi(r^+)/u^+_{\varphi}(r)$';
+                labelkay2='$\dot{\varphi^+}/\omega_{orb}$';
             case 1 % point
                 labelkay0='$r^+$';
-                labelkay1='$\dot{r^+}/u_r^+(r_s)$';
+                labelkay1='$\dot{r^+}/u_r^+(r_s-\sigma)$';
                 labelkay2='$\sigma\dot{\varphi^+}/u^+_{\varphi}(\sigma)$';
         end
     case 0
@@ -80,7 +80,7 @@ xlim(limitx)
 ylabel(labelkay2,'interpreter','latex')
 ticzki=get(gca,'XTick');
 if skal==1 && typ==0
-    ylim([0.99 1.001])
+    %ylim([0.99 1.001])
 end
 grid on   
 
@@ -108,9 +108,9 @@ if skal==1
         case 0 % in-orbit
             [rad_vel_field,~,~]=velocity_field(part(p).par.A,eps,0);
             yplot3= -yplot3./rad_vel_field;
-            [~,az_vel_field,~]=velocity_field(part(p).par.A,yplot1,0);
-            yplot4=smoothdata(yplot4./az_vel_field,'gaussian',500);
-            %yplot4=yplot4/sqrt(param(p)^(-1));
+            %[~,az_vel_field,~]=velocity_field(part(p).par.A,yplot1,0);
+            %yplot4=smoothdata(yplot4./az_vel_field,'gaussian',500);
+            yplot4=yplot4/sqrt(part(p).par.A/part(p).par.St);
             yplot1=yplot1/(max(yplot1));
             
         case 1 % point
