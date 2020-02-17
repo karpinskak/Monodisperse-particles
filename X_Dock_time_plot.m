@@ -17,37 +17,45 @@ skala=100;
 
 %% Declare constants, load data
 Const = Constants;
-load([loadDIR 'Dock_time_eps_00001.mat'])
+load([loadDIR 'Dock_time_eps_00001_full.mat'])
 
-A2=reshape(A,size(Aa));
-St2=reshape(St,size(Aa));
-texit2=reshape(texit,size(Aa));
-texit2(texit2==0)=NaN;
-odl=reshape(abs(r0_bez-rfin_bez),size(Aa));
-
+%% Grid data
+% texit(texit==0)=NaN;
+% xlin=linspace(min(A),max(A),301);
+% ylin=linspace(min(St),max(St),50);
+% [X,Y]=meshgrid(xlin,ylin);
+% f = scatteredInterpolant(A,St,real(texit)');
+% Z = f(X,Y);
+X=AA;
+Y=ST;
+Z=reshape(texitt,size(X));
 
 %% classic (A,St,log t_doc) surf plot
-% close all
-% figure
-% set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
-%     'paperunits','centimeters',...
-%     'papersize',[width,height],...
-%     'InvertHardCopy','off')
-% %plot3(AA,16*pi^2*AA,zeros(1,numel(AA))+14,'Color',[0 0 0],'LineWidth',2)
-% %legend('St/A=16 \pi^2')
-% %hold on
-% surf(A2,St2,real(texit2),'EdgeColor','none')
-% set(gca,'zscale','log')
-% set(gca,'ColorScale','log')
-% c=colorbar;
-% %shading interp
-% xlabel('A')
-% ylabel('St')
-% ylim([0 1])
-% zlabel('t_{doc}')
-% c.Label.String='t_{doc}';
-% set(gca,'FontSize',fsize)
-% hold off
+close all
+figure
+set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
+    'paperunits','centimeters',...
+    'papersize',[width,height],...
+    'InvertHardCopy','off')
+plot3(aa,16*pi^2*aa,zeros(1,numel(aa))+14,'Color',[0 0 0],'LineWidth',2)
+%legend('St/A=16 \pi^2')
+%hold on
+%stem3(A,St,real(texit))%,'EdgeColor','none')
+surf(X,Y,Z)
+colormap(jet)
+c=colorbar;
+set(gca,'zscale','log')
+set(gca,'ColorScale','log')
+
+%shading interp
+xlabel('A')
+ylabel('St')
+ylim([0 1])
+xlim([min(A) max(A)])
+zlabel('t_{doc}')
+c.Label.String='t_{doc}';
+set(gca,'FontSize',fsize)
+hold off
 % 
 
 % (St/A,St,log t_doc) surf plot
@@ -236,24 +244,25 @@ odl=reshape(abs(r0_bez-rfin_bez),size(Aa));
 %   colorbar
 
 %% St/A
-clf
-figure(6)
-set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
-     'paperunits','centimeters',...
-     'papersize',[width,height],...
-     'InvertHardCopy','off')
-par=(St./A);
-%-(exp(1)^2./A(2675:end))
-scatter(par(par>(16*pi^2)),A(par>(16*pi^2)).*texit(par>(16*pi^2))',25,A(par>(16*pi^2)))
-xlabel('St/A')
-set(gca, 'YScale', 'log')
-%ylim([3*10^3,5*10^6])
-ylabel('t_{doc 2}*A')
-c=colorbar;
-c.Title.String='A';
-set(gca,'FontSize',fsize)
-c.Title.FontSize=fsize-2;
-c.FontSize=fsize-5;
+% clf
+% figure(6)
+% set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
+%      'paperunits','centimeters',...
+%      'papersize',[width,height],...
+%      'InvertHardCopy','off')
+% par=(St./A);
+% %-(exp(1)^2./A(2675:end))
+% scatter(par(par>(16*pi^2)),A(par>(16*pi^2)).*texit(par>(16*pi^2))',25,A(par>(16*pi^2)))
+% xlabel('St/A')
+% set(gca, 'YScale', 'log')
+% %ylim([3*10^3,5*10^6])
+% ylabel('t_{doc 2}*A')
+% c=colorbar;
+% c.Title.String='A';
+% set(gca,'FontSize',fsize)
+% c.Title.FontSize=fsize-2;
+% c.FontSize=fsize-5;
+
 %hold on
 %fit=log(1.1.^par(2675:end)); %
 %scatter(par(2675:end),fit,25);%St(2675:end)/(max(St(2675:end))))

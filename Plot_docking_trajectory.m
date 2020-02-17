@@ -48,6 +48,9 @@ for l=1:numel(numerki)
     end
     hold on
 end
+if skalalogy==1
+set(gca,'yscale','log')
+end
 xlim(limitx)
 ylabel(labelkay0,'interpreter','latex')
 set(gca,'FontSize',fsize)
@@ -60,6 +63,9 @@ for l=1:numel(numerki)
     [xplot,~,yplot3,~]=plot_variables(skal,typ,eps,part,texit,p,Const);
     plot(xplot,yplot3,'Color',kolory(l,:),'Linewidth',2)
     hold on
+end
+if skalalogy==1
+set(gca,'yscale','log')
 end
 xlim(limitx)
 %ylim(limity)
@@ -114,7 +120,8 @@ if skal==1
             yplot1=yplot1/(max(yplot1));
             
         case 1 % point
-            [rad_vel_field,~,~]=velocity_field(part(p).par.A, Const.rs, 0);
+            yplot1=yplot1/(Const.rs-eps);
+            [rad_vel_field,~,~]=velocity_field(part(p).par.A, Const.rs-eps, 0);
             yplot3= yplot3./rad_vel_field;
             [~,az_vel_field,~]=velocity_field(part(p).par.A, eps, 0);
             yplot4=smoothdata(yplot4./az_vel_field,'gaussian',250);

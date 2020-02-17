@@ -46,7 +46,7 @@ parpool('local',poolnr)
  
 parfor p=1:numel(A)
        
-    disp(char(num2str(p),' is on.'))
+    %disp(char(num2str(p),' is on.'))
     tic
     t0=t00;
     tfin=St(p)*nt;
@@ -114,6 +114,7 @@ parfor p=1:numel(A)
     
     if isempty(iev) && calc_time_temp>=lim_time
         texit(p)=1i*tfin;
+        disp(['Time limit crossed for p=' num2str(p)])
     elseif ~isempty(iev)
         texit(p)=tev;
         % now calculate it with enough detail, take small timestep adjusted to particle size
@@ -136,7 +137,7 @@ parfor p=1:numel(A)
     calc_time(p)=calc_time_temp;
     trX{p}=trjx;
     trt{p}=trjt;
-    disp(char('Calculation for p=',num2str(p),' done.'))
+    disp(['Calc for p=',num2str(p),' done.'])
     
     if sign(rfin_bez(p)-r0_bez(p))~=sign(trjx(end,1)-trjx(1,1))
         disp(char('Sth is wrong with particle direction of motion for p=',num2str(p),'.'))
@@ -161,7 +162,8 @@ end
 texitt=texit; %% changed 22.01.2020
 texitt(texitt==0)=NaN;
 toc
-save([loadDIR name])
+clear trt trX vfi_0 vr_0
+save([loadDIR name],'-v7.3')
  
 function dx = traj_pionowy(t,x,St,A)
 dx=[x(3);...

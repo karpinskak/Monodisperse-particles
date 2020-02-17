@@ -187,10 +187,10 @@ texwyb=texitt(wybor);
 scatter(param_wyb(do_plot==1),-fun_param(do_plot==1)./(Awyb(do_plot==1)),'k')
 ylim([0 1.1])
 grid on
-xlabel('$St/A$','interpreter','latex')
-ylabel('$a(St,A)/A$','interpreter','latex')
-set(gca,'FontSize',fsize)
-box on
+xlabel('$St/A$','int)
+ylabel('$a(St,A)/A$')
+
+
 %scatter(param_wyb(do_plot==1),-fun_param(do_plot==1)./texwyb(do_plot==1)./(Awyb(do_plot==1)))
 %scatter(log(16*pi^2-param_wyb(do_plot==1)),log(-fun_param(do_plot==1)))
 %scatter(param_wyb(do_plot==1),-fun_param(do_plot==1)./texwyb(do_plot==1)./(Stwyb(do_plot==1)./(16*pi^2)+Awyb(do_plot==1)))
