@@ -1,0 +1,21 @@
+clear
+close all
+clc
+delete(gcp('nocreate'))
+
+DIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/';
+
+%% Load constants and functions
+Const=Constants;
+fDIR=[DIR 'Functions/'];
+addpath(fDIR)
+
+%% parameter ranges
+R=(1:20)*10^(-6);
+delta=0.0001:0.001:2;
+teta=0.5*pi/2;
+
+gamma=2*Const.nu./delta.^2;
+tau_p=2*Const.ro_p.*R.^2/(9*Const.nu*Const.ro_a);
+P=1+Const.nu^(-1)*Const.g^2*
+Amax=
