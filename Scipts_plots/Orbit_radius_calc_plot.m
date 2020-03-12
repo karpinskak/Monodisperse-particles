@@ -16,6 +16,7 @@ nproc=3;
 %% choose input data type
 dane=2; % 1 - if you have meshgrid of St and A parameters, 2- list of St/A,
         % 3 - meshgrid of R and A for given delta
+        % 4 - meshgrid of delta and A
 if dane==2 % choose
     opcja=3; % 1 - plot r0 vs St/A, 2- plot r0 vs A/St 3- inne
 end
