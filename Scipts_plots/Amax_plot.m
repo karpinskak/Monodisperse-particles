@@ -12,7 +12,7 @@ fDIR=[DIR 'Functions/'];
 addpath(fDIR)
 
 % choose plot
-opcja=2 ;
+opcja=1 ;
 
 % plot parameters
 fsize=18;
@@ -20,12 +20,13 @@ width=16;
 height=20;
 %% parameter ranges
 
-R=[0.01,(1:20)]*10^(-6);
-delta=[0.1,0.5:0.5:2.5]*10^(-2);
+R=[0.01,(1:0.1:20)]*10^(-6);
+%delta=[0.1,0.5:0.5:2.5]*10^(-2);
+delta=[0.1:0.01:2.5]*10^(-2);
 %gamma=0.05:.01:1;
 %delta=sqrt(2*Const.nu./gamma);
 kolor=jet(numel(delta));
-teta=[0.001,0.5,1]*pi/2; 
+teta=0.5*0.5*pi;%[0.001,0.5,1]*pi/2; 
 [RR,Delta,Teta]=meshgrid(R,delta,teta);
 
 tau_p=2*Const.ro_p.*RR.^2/(9*Const.nu*Const.ro_a);
@@ -41,6 +42,7 @@ set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
     'Color',[1 1 1],...
     'papersize',[width,height],...
     'InvertHardCopy','off')
+box on
 
 switch opcja
     case 1
@@ -49,8 +51,8 @@ switch opcja
         ylabel(pp,'$A_{max}$','interpreter','latex','FontSize',fsize)
         shading interp
         hold on
-        contour(Delta*10^2,RR*10^6,Amax,[Const.Acr,Const.Acr],'--','ShowText','on','Color','k')
-        text(2.152,19,'$\theta=\frac{\pi}{4}$','interpreter','latex','FontSize',fsize)
+        %contour(Delta*10^2,RR*10^6,Amax,[Const.Acr,Const.Acr],'--','ShowText','on','Color','k')
+        text(2.152,19,'$\theta=\frac{\pi}{4}$','interpreter','latex','FontSize',fsize+4)
         
         ylabel('$R [\mu m]$','interpreter','latex')
         xlabel('$\delta [cm]$','interpreter','latex')
