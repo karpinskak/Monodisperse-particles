@@ -130,6 +130,7 @@ switch dane
         set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
             'paperunits','centimeters',...
             'papersize',[width,height],...
+            'Color','white',...
             'InvertHardCopy','off')
         
         switch opcja
@@ -204,22 +205,37 @@ switch dane
                 
             case 3
                 yyaxis left
-                line(param.^(0.5),r0.^2,'LineWidth',2)
+                plot1=line(param.^(0.5),r0.^2,'LineWidth',2)
                 %loglog(param.^(0.5),r0,'LineWidth',2)
                 ylabel('$r^{+ 2}_{orb}$','interpreter','latex')
                 hold on
-                line(param.^(0.5), param.^(1/2)/(2*pi),'LineStyle','--','LineWidth',1)
-                line(param.^(0.5), 4-16*pi*param.^(-0.5),'LineStyle','--','LineWidth',1)
+                xplotcut1=param.^(0.5);
+                xplotcut1(150:end)=[];
+                xplotcut2=param.^(0.5);
+                xplotcut2(1:100)=[];
+                line(xplotcut2, xplotcut2/(2*pi),'LineStyle','--','LineWidth',1)
+                line(xplotcut1, 4-16*pi*xplotcut1.^(-1),'LineStyle','--','LineWidth',1)
                 
                 yyaxis right
                omega=sqrt(param.^(-1));
                 %loglog(param.^(0.5),omega.*r0.^2,'LineWidth',2)
-                line(param.^(0.5),omega.*r0.^2,'LineWidth',2)
-                ylabel('$\omega_{orb} r^{+ 2}_{orb}$','interpreter','latex')
+                plot2=line(param.^(0.5),omega.*r0.^2,'LineWidth',2)
+                ylabel('$\omega_{orb} \ r^{+ 2}_{orb}$','interpreter','latex')
                 
                 xlabel('$\sqrt{St/A}$','interpreter','latex')
+                xlim([4*pi,100])
                 line(param.^(0.5),1/(2*pi)+zeros(size(param)),'LineStyle','--','LineWidth',1)
-                set(gca,'FontSize',fsize)
+                ticzki=get(gca, 'XTick');
+                ticz=unique([4*pi , ticzki]);
+                set(gca, 'XTick', ticz,...
+                    'FontSize',fsize);
+                ticlab=get(gca, 'XTickLabel');
+                ticlab{1}='4\pi';
+                set(gca, 'XTickLabel',ticlab)
+                text(28 ,0.07 ,'$(2\pi)^{-1}\sqrt{St/A}$','Interpreter','latex','Color',get(plot1,'Color'),'FontSize',fsize)
+                text( 17, 0.155 , '$(2\pi)^{-1}$','Interpreter','latex','Color',get(plot2,'Color'),'FontSize',fsize)
+                text( 20, 0.01 ,'$-16\pi \sqrt{A/St}+4$','Interpreter','latex','Color',get(plot1,'Color'),'FontSize',fsize)
+                
         end
         
         
