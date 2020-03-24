@@ -9,9 +9,9 @@ C = Constants;
 fDIR='/home/pracownicy/karpinska/Dokumenty/Praca_doktorska_analizy/Monodisperse_particles/Functions/othercolor';
 addpath(fDIR)
 
-R=(1:0.5:20)*10^(-6);
+R=(1:0.5:25)*10^(-6);
 tau_ps=(2*C.ro_p*R.^2)./(9*C.nu*C.ro_a);
-deltas=0.001:0.0005:0.02;
+deltas=(0.1:0.05:1)*10^(-2);
 [tau_p,delta]=meshgrid(tau_ps,deltas);
 k=(sqrt(1+(4*C.nu*tau_p./(delta.^2)))).^(-1);
 tau_z=2*tau_p./(k.^(-1)-1); % tau_z
@@ -41,19 +41,16 @@ colormap(cd)
 h=colorbar;
 xlabel('\delta[cm]')
 ylabel('$(\tau_z-\tau_z^{\approx})/\tau_z$','interpreter','latex');
-% xlim([-0.0001*skala,max(deltas)*skala])
-% ylim([-0.003*skala,1.07*max(max(tau_z))])
 set(gca,'FontSize',fsize)
-set(gca,'clim',[1, 20])
+set(gca,'clim',[1, 25])
 box on
 grid on
 ylabel(h, '$R [\mu m]$','interpreter','latex')
-
 yyaxis right
 plot(deltas*skala,C.nu^(-1)*deltas.^2,'--','LineWidth',3)
 ylabel('$\tau_z$ [s]','interpreter','latex')
 
-
+xlim([min(deltas)*skala, max(deltas)*skala])
 % magnifyOnFigure(...
 %         figHandler,...
 %         'units', 'pixels',...

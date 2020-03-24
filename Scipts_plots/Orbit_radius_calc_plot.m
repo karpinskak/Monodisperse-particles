@@ -27,7 +27,7 @@ width=16;
 height=20;
 
 
-%% Input data and calculation of param=St/A;
+%% Input data and calculate param=St/A;
 
 switch dane
     case 1  %give matrix of St and A
