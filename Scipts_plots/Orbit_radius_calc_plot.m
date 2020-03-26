@@ -11,10 +11,10 @@ Const=Constants;
 fDIR=[DIR '/Functions'];
 addpath(fDIR)
 %
-nproc=3;
+nproc=14;
 
 %% choose input data type
-dane=2; % 1 - if you have meshgrid of St and A parameters, 2- list of St/A,
+dane=3; % 1 - if you have meshgrid of St and A parameters, 2- list of St/A,
         % 3 - meshgrid of R and A for given delta
         % 4 - meshgrid of delta and A
 if dane==2 % choose
@@ -45,8 +45,8 @@ switch dane
         
         delta=0.005; %[m]
         skala=100;
-        RR=(1:0.5:20)*10^(-6); %[m]
-        AA=0.0001:0.00005:0.005; %[1]
+        RR=(1:0.05:25)*10^(-6); %[m]
+        AA=0.0001:0.0001:0.02; %[1]
         [R,A]=meshgrid(RR,AA);
         St=zeros(size(A));
         
@@ -246,24 +246,26 @@ switch dane
         set(gcf,'Position', [640, 300, 2*560, 2*420 ],...
             'paperunits','centimeters',...
             'papersize',[width,height],...
+            'Color','white',...
             'InvertHardCopy','off')
         
         pcolor(A,R*10^6,r0*delta*skala)
         hold on
-        
+         set(gca,'FontSize',fsize)
+         
         St_cr=16*pi^2*AA;
         tau_p_cr=delta^2*AA.*St_cr*Const.nu^(-1);
         R_cr=(9*Const.nu*tau_p_cr*Const.ro_a/(2*Const.ro_p)).^(1/2);
         clear St_cr tau_p_cr
         plot(AA,R_cr*10^6,'Color',[0 0 0],'LineWidth',1)
-        xlabel('A')
-        ylabel('R [um]')
+        xlabel('$A$','interpreter','latex','FontSize',fsize+2)
+        ylabel('$R$~$[\mu m]$','interpreter','latex','FontSize',fsize+2)
         h = colorbar;
-        ylabel(h, 'r_{orb} [cm]')
+        ylabel(h, '$r_{orb}$~[cm]','interpreter','latex','FontSize',fsize+2)
         shading interp
-        ylim([0 20])
-        xlim([0.0001 0.005])
-        set(gca,'FontSize',fsize)
+        ylim([0 25])
+        xlim([0.0001 0.006])
+       
 end
 
 %% saving

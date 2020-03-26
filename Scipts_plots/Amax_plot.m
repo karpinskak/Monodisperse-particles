@@ -12,7 +12,7 @@ fDIR=[DIR 'Functions/'];
 addpath(fDIR)
 
 % choose plot
-opcja=1 ;
+opcja=2 ;
 
 % plot parameters
 fsize=18;
@@ -20,13 +20,13 @@ width=16;
 height=20;
 %% parameter ranges
 
-R=[0.01,(1:0.1:20)]*10^(-6);
+R=[0.01,(1:0.1:25)]*10^(-6);
 %delta=[0.1,0.5:0.5:2.5]*10^(-2);
-delta=[0.1:0.01:2.5]*10^(-2);
+delta=[0.1,0.3,0.5,0.7,0.9]*10^(-2);%[0.1:0.005:1.005]*10^(-2);
 %gamma=0.05:.01:1;
 %delta=sqrt(2*Const.nu./gamma);
 kolor=jet(numel(delta));
-teta=0.5*0.5*pi;%[0.001,0.5,1]*pi/2; 
+teta=[0.001,0.5,1]*pi/2; 
 [RR,Delta,Teta]=meshgrid(R,delta,teta);
 
 tau_p=2*Const.ro_p.*RR.^2/(9*Const.nu*Const.ro_a);
@@ -56,7 +56,7 @@ switch opcja
         
         ylabel('$R [\mu m]$','interpreter','latex')
         xlabel('$\delta [cm]$','interpreter','latex')
-        ylim([1 20])
+        ylim([1 25])
         set(gca,'FontSize',fsize)
         hold off
     case 2
