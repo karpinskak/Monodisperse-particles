@@ -12,7 +12,7 @@ fDIR=[DIR 'Functions/'];
 addpath(fDIR)
 
 % choose plot
-opcja=2 ;
+opcja=1 ;  % 1- pcolor  % 2- patches, 3- 
 
 % plot parameters
 fsize=18;
@@ -20,15 +20,15 @@ width=16;
 height=20;
 %% parameter ranges
 
-R=[0.01,(1:0.1:25)]*10^(-6);
+R=[0.01,(1:0.1:250)]*10^(-6);
 %delta=[0.1,0.5:0.5:2.5]*10^(-2);
-delta=[0.1,0.3,0.5,0.7,0.9]*10^(-2);%[0.1:0.005:1.005]*10^(-2);
+%delta=[0.1,0.3,0.5,0.7,0.9]*10^(-2);
+delta=[0.01:0.005:1.005]*10^(-2);
 %gamma=0.05:.01:1;
 %delta=sqrt(2*Const.nu./gamma);
 kolor=jet(numel(delta));
 teta=[0.001,0.5,1]*pi/2; 
 [RR,Delta,Teta]=meshgrid(R,delta,teta);
-
 tau_p=2*Const.ro_p.*RR.^2/(9*Const.nu*Const.ro_a);
 P=1+Const.nu^(-1)*Const.g^2*tau_p.^3.*(sin(Teta)).^2-Const.nu*tau_p.*Delta.^(-2);
 C=(4*pi)^(-2);
@@ -46,17 +46,17 @@ box on
 
 switch opcja
     case 1
-        pcolor(Delta(:,:,ceil(numel(teta)/2))*10^2,RR(:,:,ceil(numel(teta)/2))*10^6,Amax(:,:,ceil(numel(teta)/2)))
+        plot=pcolor(Delta(:,:,ceil(numel(teta)/2))*10^2,RR(:,:,ceil(numel(teta)/2))*10^6,Amax(:,:,ceil(numel(teta)/2)));
         pp=colorbar;
         ylabel(pp,'$A_{max}$','interpreter','latex','FontSize',fsize)
-        shading interp
+        %shading interp
         hold on
         %contour(Delta*10^2,RR*10^6,Amax,[Const.Acr,Const.Acr],'--','ShowText','on','Color','k')
         text(2.152,19,'$\theta=\frac{\pi}{4}$','interpreter','latex','FontSize',fsize+4)
-        
+        set(plot,'EdgeColor','none')
         ylabel('$R [\mu m]$','interpreter','latex')
         xlabel('$\delta [cm]$','interpreter','latex')
-        ylim([1 25])
+        ylim([1 250])
         set(gca,'FontSize',fsize)
         hold off
     case 2

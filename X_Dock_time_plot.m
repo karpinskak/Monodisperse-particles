@@ -44,13 +44,13 @@ c=colorbar;
 set(gca,'zscale','log')
 set(gca,'ColorScale','log')
 
-%shading interp
+shading interp
 xlabel('A')
 ylabel('St')
 ylim([0 1])
 xlim([min(A) max(A)])
-zlabel('t_{doc}')
-c.Label.String='t_{doc}';
+zlabel('t^+_{doc}')
+c.Label.String='t^+_{doc}';
 set(gca,'FontSize',fsize)
 hold off
 
